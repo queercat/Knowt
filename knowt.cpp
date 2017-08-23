@@ -62,23 +62,60 @@ void Card::outputCard() {
 class Cards {
 	private:
 		std::vector<Card> cardGroup;
-		std::string Title;
+		std::string title;
 
 	public:
 		/* Public members */
-		std::vector<std::string> getCards();
+		std::vector<Card> getCards();
 		std::string getTitle();
-		
+		void addCard(Card);
+
 		/* Debugging methods */
 		void outputCards();
 };
+
+/**
+ * @desc Return the cards by reference.
+ * @return {std::vector<Card>} the cards being returned.
+ */
+std::vector<Card> Cards::getCards() {
+    return this->cardGroup;
+}
+
+/**
+ * @desc Return the title of the card group.
+ * @return {std::string} the title of the cards group.
+ */
+std::string Cards::getTitle() {
+    return this->title;
+}
+
+/**
+ * @desc Add a card to the top of the deck.
+ * @param {Card} card the card to be added to the deck.
+ */
+void Cards::addCard(Card card) {
+    (this->cardGroup).push_back(card); //Add the card to the top of the stack. LIFO
+}
+
+/**
+ * @desc Output the cards to standard out.
+ */
+void Cards::outputCards() {
+    for (auto &card : this->cardGroup) {
+        std::cout << card.getFront() << " - "; 
+    }
+
+    std::cout << std::endl;
+}
 
 /**
  * @desc The main function, starting the whole process with the active stuff.
  */
 int main() {
 	Card card = Card("Front", "Back");
-	card.outputCard();
+    Cards cards;
+    cards.outputCards();
 
 	return 0;
 }
